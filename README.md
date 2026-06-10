@@ -8,7 +8,7 @@ day usage looks like.
 
 Two tools:
  * **`/bubble_cost`** - check out how much have you been sponsored by AI investors
- * **`/idiot`**       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
+ * **`/idiot`**       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?" counter with note what happened
 
 So how much are they treating you with? Find out ;)
 
@@ -114,17 +114,38 @@ exact token usage (input / output / cache-read / cache-write). The scanner walks
 every transcript, dedupes by message id, prices each turn, and rolls the results
 up per session and per day. **It never modifies the transcripts.**
 
-Three files are (re)generated under `~/.ai-skeptic/`, each a vector of maps — one
+Three files are maintained under `~/.ai-skeptic/`, each a vector of maps — one
 row per observation, ready to drop into a plot:
 
 | file           | one row per | written by         | committed? |
 | -------------- | ----------- | ------------------ | ---------- |
-| `sessions.edn` | session     | `scan.clj`         | no (gitignored) |
-| `days.edn`     | day         | `scan.clj`         | no (gitignored) |
+| `sessions.edn` | session     | `scan.clj` (cumulative ledger) | no (gitignored) |
+| `days.edn`     | day         | `scan.clj` (derived from ledger) | no (gitignored) |
 | `idiots.edn`   | 🤦 event    | `idiot.clj` (append-only) | no (gitignored) |
 
-These hold *your* personal usage and are gitignored on purpose — clone the repo
-and they regenerate from your own transcripts on first run.
+These hold *your* personal usage and are gitignored on purpose.
+
+### Cumulative ledger (why totals don't reset)
+
+Claude Code only keeps about **30 days** of transcripts on disk and prunes older
+ones. A naive scan would therefore silently turn into a rolling 30-day window —
+the all-time TOTAL would quietly stop growing and old days would drop off the
+bottom as their transcripts aged out.
+
+To avoid that, `scan.clj` keeps `sessions.edn` as a **persistent ledger**. Each
+run merges the fresh scan into it: freshly-scanned sessions are authoritative for
+the ids they cover, and previously-recorded sessions survive for ids whose
+transcripts have already been pruned. `days.edn` and the printed totals are then a
+pure projection of that ledger, so a day keeps counting even after its transcripts
+are gone (and a *partially* pruned day keeps the sessions it already recorded).
+
+Two consequences worth knowing:
+
+- **History accrues from your first run forward.** The ledger can only remember
+  days it has seen at least once — it cannot recover sessions that were pruned
+  before you ever ran the scan. Run `/bubble_cost` regularly to keep it complete.
+- **`sessions.edn` is the source of truth.** Back it up if you want a permanent
+  record; deleting it resets history to whatever is currently on disk.
 
 ### Pricing
 
@@ -206,16 +227,16 @@ bb ~/.ai-skeptic/bin/idiot.clj "why it was bad"   # log a 🤦 for today
 ```
 .ai-skeptic/
 ├── bin/
-│   ├── scan.clj      # rebuild sessions/days EDN + print the report
+│   ├── scan.clj      # merge scan into the ledger + print the report
 │   └── idiot.clj     # append one 🤦 event to idiots.edn
 ├── skills/           # vendored copies of the Claude Code slash-commands
 │   ├── bubble_cost/SKILL.md
 │   └── idiot/SKILL.md
 ├── README.md
 ├── .gitignore
-├── sessions.edn      # generated, gitignored
-├── days.edn          # generated, gitignored
-└── idiots.edn        # generated, gitignored (append-only)
+├── sessions.edn      # cumulative ledger, gitignored (source of truth)
+├── days.edn          # derived from the ledger, gitignored
+└── idiots.edn        # append-only, gitignored
 ```
 
 ---
@@ -231,3 +252,8 @@ single ~20 MB download and by far the easiest path.
 **Why are the `.edn` files empty after cloning?** They're gitignored; run
 `/bubble_cost` (or `bb bin/scan.clj`) once and they populate from your own
 transcripts.
+
+**Will the TOTAL keep growing forever?** Yes — that's the point of the cumulative
+ledger (see above). It accrues from your first run onward; it can't back-fill days
+whose transcripts were already pruned before you started. Run it regularly and
+keep `sessions.edn` if you want an unbroken record.

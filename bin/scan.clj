@@ -192,16 +192,37 @@
     (println (str "\n  Estimated at list token prices; actual billing may differ."))
     (println (str "  EDN → " base "/{sessions,days,idiots}.edn   ·   /idiot <reason> to log"))))
 
+;; ---- cumulative ledger ----
+;; Claude Code keeps only ~30 days of transcripts, then prunes them. To stop the
+;; report from silently becoming a rolling 30-day window, we persist a session
+;; ledger and merge each scan into it: freshly-scanned sessions are authoritative
+;; for the ids they cover, and previously-persisted sessions survive for ids whose
+;; transcripts have aged off disk. Days are then a pure projection of the ledger,
+;; so even a partially-pruned day keeps its already-counted sessions.
+(defn read-edn-vec [path]
+  (if (fs/exists? path)
+    (try (vec (edn/read-string (slurp path))) (catch Exception _ []))
+    []))
+
+(defn merge-ledger [key-fn fresh historical]
+  (let [covered (set (map key-fn fresh))]
+    (->> (concat fresh (remove #(contains? covered (key-fn %)) historical))
+         (sort-by key-fn) vec)))
+
 ;; ---- main ----
 (defn -main []
   (when-not (fs/exists? projects)
     (println "no Claude Code transcripts found at" projects) (System/exit 0))
   (let [files (map str (fs/glob projects "*/*.jsonl"))
-        sessions (->> files
-                      (map (fn [p] (session-record p (scan-file p))))
-                      (filter :day)
-                      (sort-by :started) vec)
+        scanned (->> files
+                     (map (fn [p] (session-record p (scan-file p))))
+                     (filter :day)
+                     (sort-by :started) vec)
+        ;; merge the fresh scan into the persisted session ledger so pruned
+        ;; sessions keep counting forever
+        sessions (merge-ledger :session scanned (read-edn-vec (str base "/sessions.edn")))
         idiots (read-idiots)
+        ;; days/totals are derived from the cumulative ledger, not just disk
         days (build-days sessions idiots)]
     (fs/create-dirs base)
     (spit (str base "/sessions.edn") (with-out-str (pp/pprint sessions)))

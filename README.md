@@ -7,8 +7,8 @@ is very profitable. For me... So I've decided to make AI code statistics for wha
 day usage looks like.
 
 Two tools:
- * /bubble_cost - check out how much have you been sponsored by AI investors
- * /idiot       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
+ * **`/bubble_cost`** - check out how much have you been sponsored by AI investors
+ * **`/idiot`**       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
 
 So how much are they treating you with? Find out ;)
 

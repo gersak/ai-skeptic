@@ -10,14 +10,33 @@ Two tools:
 /bubble_cost - check out how much have you been sponsored by AI investors
 /idiot       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
 
+So how much are they treating you with? Find out ;)
 
 
-BTW. I'm not skeptic (at least for result side) and I really dislike the hype (business model?, application?).
+BTW. I'm not skeptic (at least for result side, even though mixed feelings)
+and I really dislike the hype (business model?, application?).
 
-If greatest achivement of AI is building applications (that btw get worse every year, starting from era when
-developers DIDN'T HAVE TO OPTIMISE for resources) than we are all F***D. I would like to see it applied to
-help find cancer research, CO2 emmision mitigation, resource planning, like how can we spend watter more efficiently,
-energy source researching, new materials... etc...
+If greatest achivement of AI is building applications and coding 
+(that btw get worse every year, starting from era when developers 
+DIDN'T HAVE TO OPTIMISE for resources, CPU/RAM/Networking) than we are all F***D.
+
+
+I would like to see it applied to help find cure for cancer research, CO2 emmision mitigation, 
+resource planning, like how can we spend watter more efficiently, energy source researching,
+new materials... etc...
+
+
+One more thing... I do use AI. I find it usefull for refactoring, I find it great for log analysis.
+I like to use it when setting up development infrastrucutre/docker containers and even for generating
+tests. I don't like it in situations where I need to call `/idiot` skill, and that is mostly during
+coding most valuable part!
+
+
+And last... Excuse me... for spelling. I'm not native English speaker
+
+
+# P.S. IMPORTANT
+If this doesn't work for you, its not me its AI. I didn't write the code
 
 @claude - don't change my section ever
 

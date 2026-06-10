@@ -7,8 +7,8 @@ is very profitable. For me... So I've decided to make AI code statistics for wha
 day usage looks like.
 
 Two tools:
-/bubble_cost - check out how much have you been sponsored by AI investors
-/idiot       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
+ * /bubble_cost - check out how much have you been sponsored by AI investors
+ * /idiot       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
 
 So how much are they treating you with? Find out ;)
 
@@ -51,15 +51,50 @@ and lets you log the times Claude was an idiot — so you get a Usage-tab-style
 report *plus* a running 🤦 count, persisted as plain EDN you can graph.
 
 ```
-  PER DAY  (all projects)
+      Total cost:        $1.17
+    Duration (API):    4m 5s
+    Duration (wall):   51m 19s
+    Code changes:      0 lines added, 0 removed
+    Usage by model:
+      claude-opus-4-8:     5.7k input · 11.7k output · 917.4k cache read · 39.4k cache write   ($1.17)
 
-  day               cost   🤦
-  ------------ ---------   ---
-  2026-06-10      $25.78     0
-  2026-06-09     $110.56     1
-  ...
-  ------------ ---------   ---
-  TOTAL         $6308.27     3
+    PER DAY  (all projects)
+
+    day               cost   🤦
+    ------------ ---------   ---
+    2026-06-10      $26.95     0
+    2026-06-09     $110.56     0
+    2026-06-08     $294.26     0
+    2026-06-06       $5.17     0
+    2026-06-05     $266.74     0
+    2026-06-04      $61.33     0
+    2026-06-03     $214.28     0
+    2026-06-02     $395.96     0
+    2026-06-01     $308.97     0
+    2026-05-31      $50.43     0
+    2026-05-30      $44.55     0
+    2026-05-29     $374.40     0
+    2026-05-28     $317.74     0
+    2026-05-27     $786.77     0
+    2026-05-26     $107.79     0
+    2026-05-25     $486.33     0
+    2026-05-24     $221.52     0
+    2026-05-23     $213.48     0
+    2026-05-22     $272.27     0
+    2026-05-21     $193.77     0
+    2026-05-20     $216.66     0
+    2026-05-19     $290.11     0
+    2026-05-18      $31.16     0
+    2026-05-17     $482.89     0
+    2026-05-16      $74.06     0
+    2026-05-14      $18.77     0
+    2026-05-13     $220.29     0
+    2026-05-12     $129.59     0
+    2026-05-11      $53.39     0
+    ------------ ---------   ---
+    TOTAL         $6270.19     0
+
+
 ```
 
 Two commands:

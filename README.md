@@ -1,3 +1,27 @@
+# my section
+This was FAFO project that i'll try to reason about after using it for a while.
+
+Lately I've found that Anthropic is quite generous. I've been using Claude Max subscription
+to work in parallel on multiple projects. What I noticed was that my day-to-day spending
+is very profitable. For me... So I've decided to make AI code statistics for what my day to
+day usage looks like.
+
+Two tools:
+/bubble_cost - check out how much have you been sponsored by AI investors
+/idiot       - probably not politically correct, but if it helps you you can read it like, "Oh, my dear sweet idiot... What have you done this time?"
+
+
+
+BTW. I'm not skeptic (at least for result side) and I really dislike the hype (business model?, application?).
+
+If greatest achivement of AI is building applications (that btw get worse every year, starting from era when
+developers DIDN'T HAVE TO OPTIMISE for resources) than we are all F***D. I would like to see it applied to
+help find cancer research, CO2 emmision mitigation, resource planning, like how can we spend watter more efficiently,
+energy source researching, new materials... etc...
+
+@claude - don't change my section ever
+
+
 # ai-skeptic
 
 A tiny, read-only **cost + quality scorecard** for [Claude Code](https://claude.com/claude-code).
